@@ -3,6 +3,9 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Tajawal } from "next/font/google";
 import { Providers } from "../components/Providers";
+import Header from "../sections/header/header";
+import Footer from "../sections/Footer/Footer";
+import DiscountBanner from "../sections/DiscountBanner/DiscountBanner";
 
 const tajawal = Tajawal({
   weight: ["400", "700"],
@@ -33,6 +36,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  //TODO we need to get these values from an API
+  const startDate = "2024-10-20T10:00:00";
+  const endDate = "2024-11-25T23:59:59";
+  const promotionMessage ="خصومات بنسبة 20% على الكورسات";
+
   return (
     <html lang="ar" dir="rtl">
       <head>
@@ -41,7 +50,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${tajawal.className} antialiased`}
       >
+         <DiscountBanner
+          startDate={startDate}
+          endDate={endDate}
+          promotionMessage = {promotionMessage}
+        />
+        {/*<Header /> */}
         <Providers>{children}</Providers>
+        {/* <Footer /> */}
       </body>
     </html>
   );

@@ -12,10 +12,13 @@ import "swiper/css/scrollbar";
 import CustomCard from "../../../components/CustomCard";
 import { Tooltip } from "@chakra-ui/react";
 import { Text, Box, Grid, GridItem } from "@chakra-ui/react";
+import Loading from "./loading";
+import ACAError from './ACAError.component'
+const Courses = ({ data, isLoading, errorMessage}) => {
 
-const Courses = ({ data }) => {
   const [slidesPerView, setSlidesPerView] = useState(1);
   const [showWhiteLayer, setShowWhiteLayer] = useState(true);
+  
   const handleSlideChange = (swiper) => {
     if (swiper.activeIndex > 0) {
       setShowWhiteLayer(false);
@@ -23,27 +26,38 @@ const Courses = ({ data }) => {
       setShowWhiteLayer(true);
     }
   };
+
   useEffect(() => {
-    const updateSlidesPerView = () => {
-      const width = window.innerWidth;
-      if (width >= 2200) {
-        setSlidesPerView(5);
-      } else if (width >= 1740) {
-        setSlidesPerView(4);
-      } else if (width >= 1380) {
-        setSlidesPerView(3);
-      } else if (width >= 1030) {
-        setSlidesPerView(2);
-      } else {
-        setSlidesPerView(1);
-      }
-    };
-    updateSlidesPerView();
-    window.addEventListener("resize", updateSlidesPerView);
-    return () => {
-      window.removeEventListener("resize", updateSlidesPerView);
-    };
-  }, []);
+    if(!isLoading) {
+      const updateSlidesPerView = () => {
+        const width = window.innerWidth;
+        if (width >= 2200) {
+          setSlidesPerView(5);
+        } else if (width >= 1740) {
+          setSlidesPerView(4);
+        } else if (width >= 1380) {
+          setSlidesPerView(3);
+        } else if (width >= 1030) {
+          setSlidesPerView(2);
+        } else {
+          setSlidesPerView(1);
+        }
+      };
+      updateSlidesPerView();
+      window.addEventListener("resize", updateSlidesPerView);
+      return () => {
+        window.removeEventListener("resize", updateSlidesPerView);
+      };
+    }
+  }, [isLoading]);
+
+
+  if(isLoading) 
+    return <Loading />
+
+  if(errorMessage) 
+    return <ACAError />
+
   return (
     <Box
       marginBottom={112}

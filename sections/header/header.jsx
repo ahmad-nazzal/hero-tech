@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Box, useBreakpointValue
 } from "@chakra-ui/react";

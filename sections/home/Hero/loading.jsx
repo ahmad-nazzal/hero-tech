@@ -12,7 +12,7 @@ const Loading = () => {
       size="xl"
     />
     <Text fontSize="2.5rem" fontWeight="bold" textAlign="center" mt="4">
-      Loading...
+     جاري التحميل
     </Text>
   </Center>
 );
