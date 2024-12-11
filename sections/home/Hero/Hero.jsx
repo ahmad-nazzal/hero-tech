@@ -80,7 +80,7 @@ export default function Hero() {
     const fetchCourses = async () => {
       try {
         setCoursesLoading(true);
-        const resData = await fetch("http://localhost:4000/courses4");
+        const resData = await fetch(`${process.env.API_ENDPOINT}/courses`);
         if (!resData.ok) {
           throw new Error(`HTTP error! status: ${resData.status}`);
         }
