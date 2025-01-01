@@ -12,7 +12,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 interface CustomCardProps {
-  title: string;
+  title: string | ReactNode;
   price: string;
   trainerName?: string;
   duration?: string;
@@ -38,26 +38,20 @@ const CustomCard: React.FC<CustomCardProps> = ({
       width="350.03px"
       height="510px"
     >
-      <CardHeader
-        pt="0"
-        pr="0"
-        
-      >
+      <CardHeader pt="0" pr="0">
         <Box
           bg="#FF6542"
           p="10"
           borderRadius="11px 11px 0 0"
           width="350px"
           height="286px"
-      
-      
         >
           <Image
             height="200px"
             width="200px"
             marginRight="38px"
             src={imageSrc}
-            alt={title}
+            alt={String(title)}
             style={{
               filter: applyFilter ? "invert(1)" : "none",
             }}
@@ -92,9 +86,7 @@ const CustomCard: React.FC<CustomCardProps> = ({
       </CardBody>
 
       <CardFooter paddingTop={0}>
-        <Flex
-          gap="13px"
-        >
+        <Flex gap="13px">
           {buttons && buttons.length > 0 ? (
             buttons.map((button, index) => (
               <React.Fragment key={index}>{button}</React.Fragment>

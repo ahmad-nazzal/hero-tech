@@ -107,7 +107,7 @@ const HeaderDesktop = () => {
             gap={{ lg: 5, md: 5 }}
             marginLeft={{ lg: "75px", md: "20px", sm: "20px" }}
           >
-            {true ? (
+            {isAuthenticated ? (
               <Flex
                 gap={{ lg: 5, md: 8, sm: 8 }}
                 ml={{ lg: "18px", md: "30px", sm: "30px" }}

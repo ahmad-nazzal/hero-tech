@@ -11,7 +11,7 @@ import ButtonAC from "../../components/ButtonAC";
 import { AiToolsCardProps } from "./types";
 import empHeartlogo from "../../public/images/emp-heart.png";
 import heartlogo from "../../public/images/heart.png";
-
+import ai from "../../public/images/ai.jpg";
 interface AiToolsCardComponentProps {
   tool: AiToolsCardProps;
   isFavorite: boolean;
@@ -55,7 +55,8 @@ export function AiToolsCard({
       <Flex direction="column" gap={4} h="full">
         <Box position="relative" width="100%" height="193px">
           <Image
-            src="https://via.placeholder.com/400x193"
+            // src="https://via.placeholder.com/400x193"
+            src={ai}
             alt="AI Tool Image"
             layout="fill"
             objectFit="cover"

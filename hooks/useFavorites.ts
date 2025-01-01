@@ -1,5 +1,5 @@
-// hooks/useFavorites.ts
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { AiToolsCardProps } from "../sections/AiTools/types";
 
 export const useFavorites = () => {
@@ -32,11 +32,36 @@ export const useFavorites = () => {
   };
 
   const toggleFavorite = (toolId: number) => {
-    setFavorites(prev => {
-      const newFavorites = prev.includes(toolId)
-        ? prev.filter(id => id !== toolId)
-        : [...prev, toolId];
-      
+    setFavorites((prev) => {
+      const isAdding = !prev.includes(toolId);
+      const newFavorites = isAdding
+        ? [...prev, toolId]
+        : prev.filter((id) => id !== toolId);
+
+
+      const addToastId = `add-toast-${toolId}`;
+      const removeToastId = `remove-toast-${toolId}`;
+
+      if (isAdding) {
+        if (!toast.isActive(addToastId)) {
+          toast.success(" !تمت الإضافة إلى المفضلة", {
+            toastId: addToastId,
+            style:{
+              color:"#462576" , fontWeight:"bold"
+             }
+          });
+        }
+      } else {
+        if (!toast.isActive(removeToastId)) {
+          toast.warn("!تمت الإزالة من المفضلة", {
+            toastId: removeToastId,
+            style:{
+              color:"#462576" , fontWeight:"bold"
+             }
+          });
+        }
+      }
+
       localStorage.setItem("favorites", JSON.stringify(newFavorites));
       return newFavorites;
     });
@@ -56,6 +81,6 @@ export const useFavorites = () => {
     getFavoriteTools,
     toggleFavorite,
     isShowingFavorites,
-    setIsShowingFavorites
+    setIsShowingFavorites,
   };
 };

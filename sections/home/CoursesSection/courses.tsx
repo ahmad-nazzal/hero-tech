@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 import React, { useState, useEffect } from "react";
 import ButtonAC from "../../../components/ButtonAC";
-import Loading from "./loading";
 import mazedlogo from "../../../public/images/circled_outline.png";
 import paylogo from "../../../public/images/cart_icon.png";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
@@ -14,42 +15,25 @@ import CustomCard from "../../../components/CustomCard";
 import { Tooltip } from "@chakra-ui/react";
 import { Text, Box, Grid, GridItem } from "@chakra-ui/react";
 
-const Courses = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+interface FormattedCourse {
+  id: number;
+  name: string;
+  price: string;
+  image: string;
+  duration: string;
+  trainer: string;
+  description: string;
+  level: string;
+  isComingSoon: boolean;
+}
+
+interface CoursesProps {
+  data: FormattedCourse[];
+}
+
+const Courses: React.FC<CoursesProps> = ({ data }) => {
   const [slidesPerView, setSlidesPerView] = useState(1);
   const [showWhiteLayer, setShowWhiteLayer] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://sitev2.arabcodeacademy.com/wp-json/aca/v1/courses"
-        );
-        const result = await response.json();
-        const formattedData = result.courses.map((course) => ({
-          id: course.id,
-          name: course.title,
-          price: `$${course.price}`,
-          image: course.imageURL,
-          duration: `${course.total_videos} فيديو، ${course.total_duration}`,
-          trainer: course.trainers
-            .filter((trainer) => trainer.leader)
-            .map((trainer) => `${trainer.first_name} ${trainer.last_name}`)
-            .join(", "),
-          description: `السعر الأصلي: ${course.original_price} ${course.currency}`,
-          level: "غير محدد",
-          isComingSoon: course.status === "coming_soon",
-        }));
-        setData(formattedData);
-      } catch (error) {
-        console.error("خطأ أثناء جلب البيانات:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   useEffect(() => {
     const updateSlidesPerView = () => {
@@ -73,7 +57,7 @@ const Courses = () => {
     };
   }, []);
 
-  const handleSlideChange = (swiper) => {
+  const handleSlideChange = (swiper: any) => {
     if (swiper.activeIndex > 0) {
       setShowWhiteLayer(false);
     } else {
@@ -81,7 +65,6 @@ const Courses = () => {
     }
   };
 
-  if (loading) return <Loading />;
   return (
     <Box
       marginBottom={112}

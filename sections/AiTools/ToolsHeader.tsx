@@ -7,12 +7,14 @@ interface ToolsHeaderProps {
   onSearch: (query: string) => void;
   isShowingFavorites: boolean;
   onToggleFavorites: () => void;
+  searchQuery: string;
 }
 
 export const ToolsHeader: React.FC<ToolsHeaderProps> = ({
   onSearch,
   isShowingFavorites,
   onToggleFavorites,
+  searchQuery,
 }) => (
   <Flex
     direction={{ base: "column", md: "column", lg: "row" }}
@@ -22,7 +24,7 @@ export const ToolsHeader: React.FC<ToolsHeaderProps> = ({
     mb={{ lg: "30px" }}
     justifyContent={{ lg: "space-between" }}
   >
-    <SearchSection onSearch={onSearch} />
+    <SearchSection onSearch={onSearch} searchQuery={searchQuery} />
     <FavoritesButton
       isShowingFavorites={isShowingFavorites}
       onClick={onToggleFavorites}

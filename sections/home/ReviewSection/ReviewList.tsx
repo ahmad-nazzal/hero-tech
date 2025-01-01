@@ -9,29 +9,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "./ReviewList.css";
-import { useEffect, useState } from "react";
 import ReviewCardProps from "./ReviewCardProps";
 
-const ReviewList = () => {
-  const [reviews, setReviews] = useState<ReviewCardProps[]>([]);
-
-  // استدعاء البيانات مرة واحدة فقط عند تحميل المكون
-  useEffect(() => {
-    getReviews();
-  }, []); // مصفوفة التبعية فارغة
-
-  async function getReviews() {
-    try {
-      const res = await fetch(
-        "https://sitev2.arabcodeacademy.com/wp-json/aca/v1/reviews"
-      );
-      const data = await res.json();
-      setReviews(data.reviews); // تحديث الحالة هنا
-    } catch (error) {
-      console.error("Error fetching reviews:", error);
-    }
-  }
-
+const ReviewList = ({ reviews }: { reviews: ReviewCardProps[] }) => {
   return (
     <Box width="100%" padding={4}>
       <Swiper

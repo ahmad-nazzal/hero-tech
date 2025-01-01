@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Box,
@@ -8,9 +9,9 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import dad from "../../public/icons/dad.svg";
-import ButtonAC from "../../components/ButtonAC";
-import googleDocs from "../../public/icons/google docs.svg";
+import dad from "../../../public/icons/dad.svg";
+import ButtonAC from "../../../components/ButtonAC";
+import googleDocs from "../../../public/icons/google docs.svg";
 
 const Dad = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
