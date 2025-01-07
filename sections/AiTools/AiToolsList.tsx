@@ -10,6 +10,7 @@ import { ToolsHeader } from "./ToolsHeader";
 import { NoToolsMessage } from "./NoToolsMessage";
 import { ToolsGridLayout } from "./ToolsGridLayout";
 import { useAiTools } from "../../hooks/useAiTools";
+import { useTheme } from "../../hooks/useTheme";
 
 export default function AiToolsList({
   initialAiTools,
@@ -26,6 +27,7 @@ export default function AiToolsList({
     setIsShowingFavorites,
     getFavoriteTools,
   } = useFavorites();
+  const { color } = useTheme();
 
   const { searchQuery, updateSearchQuery } = useUrlSearch();
 
@@ -42,6 +44,7 @@ export default function AiToolsList({
         height="100vh"
         fontWeight="700"
         fontSize="30px"
+        color={color}
       >
         حدث خطأ في جلب البيانات
       </Flex>

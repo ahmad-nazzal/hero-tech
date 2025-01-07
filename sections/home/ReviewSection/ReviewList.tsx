@@ -10,8 +10,10 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "./ReviewList.css";
 import ReviewCardProps from "./ReviewCardProps";
+import { useTheme } from "../../../hooks/useTheme";
 
 const ReviewList = ({ reviews }: { reviews: ReviewCardProps[] }) => {
+  const { color } = useTheme();
   return (
     <Box width="100%" padding={4}>
       <Swiper
@@ -30,6 +32,7 @@ const ReviewList = ({ reviews }: { reviews: ReviewCardProps[] }) => {
           height: "100%",
           paddingLeft: "25px",
           paddingRight: "25px",
+          color: color,
         }}
       >
         {reviews.map((user, index) => (

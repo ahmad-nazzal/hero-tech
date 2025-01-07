@@ -1,8 +1,10 @@
-import { Suspense } from "react";
+"use client";
+import React, { Suspense } from "react";
 import { Grid, GridItem, Text } from "@chakra-ui/react";
 import Loading from "./loading";
 import SearchBar from "../../../components/SearchBar";
 import Courses from "./courses";
+import { useTheme } from "../../../hooks/useTheme";
 
 interface Trainer {
   first_name: string;
@@ -34,13 +36,18 @@ interface FormattedCourse {
   level: string;
   isComingSoon: boolean;
 }
-export const revalidate = 2 * 24 * 60 * 60;
 
-export async function fetchCoursesData(): Promise<FormattedCourse[]> {
+// Fetch data function
+export const fetchCoursesData = async (): Promise<FormattedCourse[]> => {
   try {
     const response = await fetch(
-      "https://sitev2.arabcodeacademy.com/wp-json/aca/v1/courses"
+      "https://sitev2.arabcodeacademy.com/wp-json/aca/v1/courses",
+      { next: { revalidate: 2 * 24 * 60 * 60 } } // Ensure revalidation for ISR in Next.js
     );
+    if (!response.ok) {
+      throw new Error("Failed to fetch courses data");
+    }
+
     const result = await response.json();
 
     return result.courses.map((course: Course) => ({
@@ -61,10 +68,25 @@ export async function fetchCoursesData(): Promise<FormattedCourse[]> {
     console.error("Error fetching courses:", error);
     return [];
   }
-}
+};
 
-const CoursesPage = async () => {
-  const courses = await fetchCoursesData();
+const CoursesPage = () => {
+  const { color } = useTheme();
+
+  // Client-side fetching (React Hook)
+  const [courses, setCourses] = React.useState<FormattedCourse[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const data = await fetchCoursesData();
+      setCourses(data);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <main style={{ margin: "0", width: "100%", overflow: "hidden" }}>
@@ -83,7 +105,7 @@ const CoursesPage = async () => {
             marginRight="237px"
             marginBottom="84px"
             paddingTop="153px"
-            color="#713488"
+            color={color}
             borderBottom="2px solid #713488"
             width="208px"
             fontWeight="bold"
@@ -98,9 +120,13 @@ const CoursesPage = async () => {
         </GridItem>
       </Grid>
 
-      <Suspense fallback={<Loading />}>
-        <Courses data={courses} />
-      </Suspense>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Suspense fallback={<Loading />}>
+          <Courses data={courses} />
+        </Suspense>
+      )}
     </main>
   );
 };

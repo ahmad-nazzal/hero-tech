@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState, useEffect } from "react";
 import ButtonAC from "../../../components/ButtonAC";
@@ -14,6 +13,7 @@ import "swiper/css/scrollbar";
 import CustomCard from "../../../components/CustomCard";
 import { Tooltip } from "@chakra-ui/react";
 import { Text, Box, Grid, GridItem } from "@chakra-ui/react";
+import { useTheme } from "../../../hooks/useTheme";
 
 interface FormattedCourse {
   id: number;
@@ -32,6 +32,7 @@ interface CoursesProps {
 }
 
 const Courses: React.FC<CoursesProps> = ({ data }) => {
+  const { color } = useTheme();
   const [slidesPerView, setSlidesPerView] = useState(1);
   const [showWhiteLayer, setShowWhiteLayer] = useState(true);
 
@@ -57,6 +58,7 @@ const Courses: React.FC<CoursesProps> = ({ data }) => {
     };
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSlideChange = (swiper: any) => {
     if (swiper.activeIndex > 0) {
       setShowWhiteLayer(false);
@@ -180,7 +182,7 @@ const Courses: React.FC<CoursesProps> = ({ data }) => {
             marginRight="170px"
             marginBottom="69px"
             paddingTop="40px"
-            color="#713488"
+            color={color}
             borderBottom="2px solid #713488"
             width="70px"
             fontWeight="bold"

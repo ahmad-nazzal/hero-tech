@@ -11,17 +11,19 @@ import linkedin from "../../public/images/linkedin.png";
 
 import { GridItem, Flex, Box, Text } from "@chakra-ui/react";
 import CustomLine from "./CustomLine";
+import { useTheme } from "../../hooks/useTheme";
 
 export default function SocialMedia() {
+  const { color, bg } = useTheme();
   return (
     <GridItem width="100%" px={{ base: 4, md: 0 }}>
       <Box
         w="100%"
         maxW={{ base: "80%", md: "320px", lg: "400px" }}
         p={4}
-        bg="white"
+        bg={bg}
         borderRadius="5px"
-        color="primary"
+        color={color}
         mx="auto"
         height={{ base: "310px", md: "330px", lg: "auto" }}
         minHeight={{ base: "280px", md: "300px", lg: "350px" }}
@@ -31,7 +33,7 @@ export default function SocialMedia() {
         </Text>
         <CustomLine
           width="70%"
-          bg="primary"
+          bg={color}
           marginBottom={8}
           alignItems="flex-start"
         />
@@ -244,7 +246,7 @@ export default function SocialMedia() {
             </div>
           </Flex>
         </Flex>
-        <Text alignItems="flex-start" color="primary" mt={10}>
+        <Text alignItems="flex-start" color={color} mt={10}>
           انضم الآن إلى مجتمع المبرمجين في الأكاديمية وابدأ رحلتك نحو احتراف
           البرمجة!
         </Text>

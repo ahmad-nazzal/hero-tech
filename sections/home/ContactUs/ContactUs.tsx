@@ -1,10 +1,15 @@
-import { Box, Container } from "@chakra-ui/react";
+"use client";
+
+import { Box, Container, useColorMode } from "@chakra-ui/react";
 import contactus from "../../../public/images/contactus.png";
 import CustomBox from "../../../components/CustomBox";
 import ButtonAC from "../../../components/ButtonAC";
 import tawaselmanaa from "../../../public/images/tawaselmanaa.png";
+import { useTheme } from "../../../hooks/useTheme";
 
 function ContactUs() {
+  const { colorMode } = useColorMode();
+  const { color, bg } = useTheme();
   return (
     <Box
       as="section"
@@ -36,8 +41,9 @@ function ContactUs() {
           alignItems={{ base: "center", lg: "flex-end" }}
         >
           <CustomBox
+            color={color}
             z-index={1}
-            bg="rgba(255, 255, 255, 0.9)"
+            bg={colorMode === "dark" ? bg : "rgba(255, 255, 255, 0.89)"}
             title="أدوات تفاعلية والعاب تعليمية"
             description="تتميز الأكاديمية العربية للبرمجة بتطوير أدوات تفاعلية وألعاب تعليمية مبتكرة باستخدام أساليب الـتلعيب Gamification، مما يجعل عملية التعلم أكثر متعة وجاذبية. نقدم حلولًا مخصصة تلبي احتياجات المؤسسات والشركات، حيث نساعد في تصميم تجارب تعليمية تفاعلية تعزز من تفاعل المستخدمين وتحفزهم على التعلم بطرق غير تقليدية. سواء كنت تبحث عن تطوير مهارات فريق العمل أو تقديم تجربة تعليمية فريدة لعملائك، الأكاديمية العربية للبرمجة هي شريكك المثالي لتحقيق هذه الأهداف بنجاح."
             p={10}

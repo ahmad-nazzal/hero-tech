@@ -1,12 +1,28 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme, StyleFunctionProps } from "@chakra-ui/react";
+import { mode } from "@chakra-ui/theme-tools";
 
 const theme = extendTheme({
+  config: {
+    initialColorMode: "light", // يمكن تغييره إلى "dark" إذا أردت
+    useSystemColorMode: true,
+  },
+
   breakpoints: {
     sm: "30em", // 480px
     md: "64em", // 1024px
     lg: "80em", // 1280px
     xl: "100em", // 1600px
   },
+
+  styles: {
+    global: (props: StyleFunctionProps) => ({
+      body: {
+        bg: mode("white", "gray.900")(props),
+        color: mode("primary", "white")(props),
+      },
+    }),
+  },
+
   colors: {
     primary: "#462576", // Tekhelet
     secondary: "#00BE98", // Turquoise

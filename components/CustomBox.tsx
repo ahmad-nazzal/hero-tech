@@ -1,4 +1,6 @@
+"use client";
 import { Box, BoxProps, Text } from "@chakra-ui/react";
+import { useTheme } from "../hooks/useTheme";
 
 interface CustomBoxProps extends BoxProps {
   title: string;
@@ -14,12 +16,13 @@ const CustomBox: React.FC<CustomBoxProps> = ({
 
   ...props
 }) => {
+  const { color} = useTheme();
   return (
-    <Box {...props}>
+    <Box {...props} color={color} >
       <Text
         fontSize="2xl"
         fontWeight="700"
-        color="primary"
+        color={color}
         mb={{ base: "12px", md: "82px", lg: "90px" }}
       >
         {title}
@@ -27,7 +30,7 @@ const CustomBox: React.FC<CustomBoxProps> = ({
       <Text
         fontSize="19px"
         fontWeight="500"
-        color="primary"
+        color={color}
         lineHeight={"30px"}
       >
         {description}

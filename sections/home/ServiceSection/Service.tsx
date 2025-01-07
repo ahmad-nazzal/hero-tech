@@ -12,7 +12,9 @@ import circled_outline from "../../../public/images/circled_outline.png";
 import serviceSection1 from "../../../public/icons/serviceSection1.svg";
 import serviceSection2 from "../../../public/icons/serviceSection2.svg";
 import serviceSection3 from "../../../public/icons/serviceSection3.svg";
+import { useTheme } from "../../../hooks/useTheme";
 export const Service = () => {
+  const { color, bg } = useTheme();
   const cards = [
     {
       id: 1,
@@ -66,8 +68,8 @@ export const Service = () => {
 
   return (
     <>
-    
       <Box
+       color={color}
         position="relative"
         display="flex"
         justifyContent="center"
@@ -75,6 +77,8 @@ export const Service = () => {
         zIndex={2}
       >
         <Box
+          bg={bg}
+          color={color}
           boxShadow="0px 1px 20px 3px #00000040"
           display={"flex"}
           minHeight={{ sm: 297, md: 433, lg: 450 }}
@@ -83,7 +87,6 @@ export const Service = () => {
           px={{ sm: "28px", md: "80px", lg: 67 }}
           py={{ sm: 17, md: 27, lg: 65 }}
           gap={{ sm: "", md: 100, lg: 83 }}
-          bg={"white"}
           transform={{
             sm: "translateY(-6%)",
             md: "translateY(-8%)",
@@ -120,7 +123,7 @@ export const Service = () => {
                 fontWeight="bold"
                 textAlign={"center"}
                 fontSize={{ sm: 18, md: 25, lg: 23 }}
-                color="#713488"
+                color={color}
               >
                 {card.title}
               </Text>
